@@ -1,0 +1,27 @@
+
+# In this lab you will learn how to grab a different commit from the
+# open-power tree. Sometimes there are different commit levels you
+# may need - for example, an older release or a new testing release
+
+1. Skiboot told us to use commit 7d20aac37062d93e15a96008158e51b9bbb34684
+   # What's in it?
+   # We can use the latest commit - lets see how to do both!
+
+2. Go to github and find that commit
+   # Go to https://github.com/open-power/skiboot
+   # Expand the latest commit number by clicking on it to expand
+   # Look around - how do you find other commits?
+
+3. Edit buildroot/firmware/skiboot/skiboot.mk, and change the version to match
+   the commit skiboot told us to use (or in this case, the latest)
+
+-SKIBOOT_VERSION = 7a790f211b2e79dcb49b650128d50f2f39c4edde
++SKIBOOT_VERSION = 7d20aac37062d93e15a96008158e51b9bbb34684
+ SKIBOOT_SITE = $(call github,open-power,skiboot,$(SKIBOOT_VERSION))
+
+4. Remove the build artifacts
+   pc$ rm -rf op-build/output/build/skiboot-<commit>
+   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
+
+5. Rebuild
+   pc$ op-build openpower-pnor-rebuild

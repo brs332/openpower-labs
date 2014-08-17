@@ -1,0 +1,18 @@
+diff --git a/src/usr/fsi/fsidd.C b/src/usr/fsi/fsidd.C
+index 865e27f..a3b62e4 100644
+--- a/src/usr/fsi/fsidd.C
++++ b/src/usr/fsi/fsidd.C
+@@ -1292,6 +1292,8 @@ errlHndl_t FsiDD::handleOpbErrors(FsiAddrInfo_t& i_addrInfo,
+         l_opbErrorMask &= ~OPB_STAT_ERR_CMFSI;
+     }
+ 
++    l_opbErrorMask = i_opbStatData;
++
+     // Fail if there is a relevant error bit or the op never finished
+     if( (i_opbStatData & l_opbErrorMask)
+         || (i_opbStatData & OPB_STAT_BUSY) )
+@@ -2980,4 +2982,3 @@ void FsiDD::getFsiLinkInfo( TARGETING::Target* i_slave,
+         o_info.mPort = 1;
+     }
+ }
+-

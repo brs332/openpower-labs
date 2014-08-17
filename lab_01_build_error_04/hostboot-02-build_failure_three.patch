@@ -1,0 +1,28 @@
+diff --git a/src/usr/vpd/cvpd.C b/src/usr/vpd/cvpd.C
+index a21eaaa..aac8209 100644
+--- a/src/usr/vpd/cvpd.C
++++ b/src/usr/vpd/cvpd.C
+@@ -37,8 +37,6 @@
+ #include <vpd/vpdreasoncodes.H>
+ #include <vpd/cvpdenums.H>
+ #include <config.h>
+-#include "cvpd.H"
+-#include "vpd.H"
+ 
+ // ----------------------------------------------
+ // Trace definitions
+@@ -209,12 +207,12 @@ IpVpdFacade(CVPD::SECTION_SIZE,
+     iv_configInfo.vpdReadHW = true;
+ #else
+     iv_configInfo.vpdReadHW = false;
+-#endif    
++#endif
+ #ifdef CONFIG_CVPD_WRITE_TO_PNOR
+     iv_configInfo.vpdWritePNOR = true;
+ #else
+     iv_configInfo.vpdWritePNOR = false;
+-#endif    
++#endif
+ #ifdef CONFIG_CVPD_WRITE_TO_HW
+     iv_configInfo.vpdWriteHW = true;
+ #else

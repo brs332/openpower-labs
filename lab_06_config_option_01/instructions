@@ -1,0 +1,21 @@
+
+# In this lab we'll change the palmetto.config and investigate the changes
+
+1. Copy palmetto.config to op-build/openpower/configs/hostboot/palmetto.config
+
+2. Rebuild
+   pc$ rm -rf op-build/output/build/hostboot-<commit>
+   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
+   pc$ op-build openpower-pnor-rebuild
+
+3. Flash the image, and reboot the device
+
+4. To revert,
+   pc$ git checkout op-build/openpower/configs/hostboot/palmetto.config
+   pc$ rm -rf op-build/output/build/hostboot-<commit>
+   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
+   pc$ op-build openpower-pnor-rebuild
+
+Question: Look inside palmetto.config, and notice MVPD_READ_FROM_PNOR has
+been changed. Where in the code is this used? Are there other config options
+related to it? What happened when the code was run? Is this what you expected?

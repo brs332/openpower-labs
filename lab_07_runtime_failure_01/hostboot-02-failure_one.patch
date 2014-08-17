@@ -1,0 +1,13 @@
+diff --git a/src/usr/hwpf/hwp/edi_ei_initialization/edi_ei_initialization.C b/src/usr/hwpf/hwp/edi_ei_initialization/edi_ei_initialization.C
+index ae02ad8..eca3c95 100644
+--- a/src/usr/hwpf/hwp/edi_ei_initialization/edi_ei_initialization.C
++++ b/src/usr/hwpf/hwp/edi_ei_initialization/edi_ei_initialization.C
+@@ -102,6 +102,8 @@ void*    call_fabric_erepair( void    *io_pArgs )
+     errlHndl_t l_errl = NULL;
+     TRACFCOMP( ISTEPS_TRACE::g_trac_isteps_trace, "call_fabric_erepair entry" );
+ 
++    assert(0 != 0);
++
+     std::vector<uint8_t> l_endp1_txFaillanes;
+     std::vector<uint8_t> l_endp1_rxFaillanes;
+     std::vector<uint8_t> l_endp2_txFaillanes;

@@ -1,0 +1,17 @@
+
+# In this lab we're going to inject a build failure, and track it down.
+
+1. Copy hostboot-02-build_failure_two.patch to op-build/openpower/package/hostboot
+   pc$ cp hostboot-02-build_failure_two.patch op-build/openpower/package/hostboot
+
+2. Rebuild
+   pc$ rm -rf op-build/output/build/hostboot-<commit>
+   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
+   pc$ op-build openpower-pnor-rebuild
+
+4. To revert:
+   pc$ rm op-build/openpower/package/hostboot/hostboot-02-build_failure_two.patch
+   pc$ rm -rf op-build/output/build/hostboot-<commit>
+   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
+
+Question: What happened?

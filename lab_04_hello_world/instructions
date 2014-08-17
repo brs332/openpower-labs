@@ -1,0 +1,50 @@
+
+# The goal of this lab is to make a simple change to the
+# hostboot code and see it reflected when we run
+
+1. Create a fork of open-power/hostboot and clone it.
+   github$ make the fork
+   github$ grab the clone url
+   pc$ cd <open-power tree> && git clone <clone url>
+   pc$ cd hostboot
+
+2. Edit src/usr/hwpf/hwp/nest_chiplets/nest_chiplets.C
+
+@@ -95,6 +95,8 @@ void * call_proc_attr_update( void * io_pArgs )
+     TRACDCOMP( ISTEPS_TRACE::g_trac_isteps_trace,
+             "call_proc_attr_update entry" );
+
++    TRACFCOMP( ISTEPS_TRACE::g_trac_isteps_trace, "hello world!" );
++    assert(0 != 0);
++
+     TRACDCOMP( ISTEPS_TRACE::g_trac_isteps_trace,
+             "call_proc_attr_update exit" );
+
+3. Create a patch so buildroot picks up the changes
+   pc$ git diff src/usr/hwpf/hwp/nest_chiplets/nest_chiplets.C > ../op-build/openpower/package/hostboot/hostboot-02-hello.patch
+
+4. Remove the hostboot build tree and rebuild
+   pc$ cd ../op-build/
+   pc$ rm -rf output/build/hostboot-<commit>
+   pc$ rm -rf output/build/openpower-pnor-<commit>
+   pc$ op-build openpower-pnor-rebuild
+
+5. Copy the image up and flash it
+   pc$ scp output/images/palmetto.pnor <bmc ip>:<bmc mount point>/<file name>
+   bmc$ pflash -E -f -p <bmc mount>/<file name>
+
+   example:
+   pc$ scp output/images/palmetto.pnor 9.3.40.251:/fspmount/bmc/brian.pnor
+
+6. Run it
+   bmc$ power --off && power --on && power -- boot
+
+7. Output will be on the console
+
+# To revert
+  pc$ cd <open-power tree>/hostboot
+  pc$ git checkout src/usr/hwpf/hwp/nest_chiplets/nest_chiplets.C
+  pc$ rm ../op-build/openpower/package/hostboot/hostboot-02-hello.patch
+  pc$ rm -rf output/build/hostboot-<commit>
+  pc$ rm -rf output/build/openpower-pnor-<commit>
+  pc$ op-build openpower-pnor-rebuild

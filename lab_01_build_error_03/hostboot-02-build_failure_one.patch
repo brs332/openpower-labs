@@ -1,0 +1,13 @@
+diff --git a/src/usr/targeting/common/xmltohb/target_types.xml b/src/usr/targeting/common/xmltohb/target_types.xml
+index 5759051..f005ac5 100644
+--- a/src/usr/targeting/common/xmltohb/target_types.xml
++++ b/src/usr/targeting/common/xmltohb/target_types.xml
+@@ -147,7 +147,7 @@
+     <attribute><id>PM_SLW_CONTROL_VECTOR_OFFSET</id></attribute>
+     <!-- End pm_hwp_attributes.xml -->
+     <!-- sbe_config_update attributes    -->
+-    <attribute><id>NEST_FREQ_MHZ</id></attribute>
++    <attribute><id>NEST_FREQ_MHZ</id>
+     <attribute><id>BOOT_FREQ_MHZ</id></attribute>
+     <attribute><id>EX_GARD_BITS</id></attribute>
+     <attribute><id>PIB_I2C_REFCLOCK</id></attribute>

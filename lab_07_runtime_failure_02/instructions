@@ -1,0 +1,17 @@
+
+# In this lab we'll induce a runtime error and debug it.
+
+1. Copy openpower-pnor-01-failure_two.patch to op-build/openpower/package/openpower-pnor/
+   pc$ cp openpower-pnor-01-failure_two.patch op-build/openpower/package/openpower-pnor/
+
+2. Rebuild
+   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
+   pc$ op-build openpower-pnor-rebuild
+
+4. Flash the image, and reboot the device
+5. To revert,
+   pc$ rm op-build/openpower/package/openpower-pnor/openpower-pnor-01-failure_two.patch
+   pc$ rm -rf op-build/output/build/hostboot-binaries-<commit>
+   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
+
+Question: What happened? How do you know?

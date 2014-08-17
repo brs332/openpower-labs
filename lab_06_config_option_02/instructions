@@ -1,0 +1,23 @@
+
+# In this lab we'll modify palmetto.config and examine the code and runtime
+# behavior.
+
+1. Copy palmetto.config to op-build/openpower/configs/hostboot/palmetto.config
+   pc$ cp palmetto.config ../../op-build/openpower/configs/hostboot/palmetto.config
+
+2. Find the file gpiodd.o
+
+2. Rebuild
+   pc$ rm -rf op-build/output/build/hostboot-<commit>
+   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
+   pc$ op-build openpower-pnor-rebuild
+
+3. Find the file gipodd.o
+
+# Do we want to run this and see what happens?
+
+4. To revert, git checkout op-build/openpower/configs/hostboot/palmetto.config
+
+Question: Look inside palmetto.config, and notice GPIODD has
+been changed. Where in the code is this used? Are there other config options
+related to it?

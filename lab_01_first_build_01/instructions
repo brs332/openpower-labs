@@ -1,0 +1,36 @@
+
+# In this lab you will build the open-power tree. Because
+# downloading some of the pieces takes a long time, we have
+# provided a USB stick with the large downloads on it.
+
+1. Go to https://github.com/open-power, have a look around.
+2. In open-power/op-build/README, you'll find the build instructions
+3. Lets follow them ... but after the clone and before the op-build,
+   load the files from the USB stick in to <open-power tree>/op-build/dl
+
+# It is recommended that you create a build.log - it does not happen
+automatically.
+
+# Lets clean the build, turn on verbose output and build again
+
+1. Clean
+   pc$ rm -rf output/build/hostboot-<commit>
+
+2. To turn on the verbose build, edit op-build/openpower/package/hostboot/hostboot.mk
+
+ HOSTBOOT_ENV_VARS=$(TARGET_MAKE_ENV) \
+     CONFIG_FILE=$(BR2_EXTERNAL)/configs/hostboot/$(BR2_HOSTBOOT_CONFIG_FILE) \
+-    OPENPOWER_BUILD=1 CROSS_PREFIX=$(TARGET_CROSS) HOST_PREFIX="" HOST_BINUTILS_DIR=$(HOST_BINUTILS_DIR)
++    BUILD_VERBOSE=1 \
++    OPENPOWER_BUILD=1 CROSS_PREFIX=$(TARGET_CROSS) HOST_PREFIX="" HOST_BINUTILS_DIR=$(HOST_BINUTILS_DIR)
+
+3. Rebuild
+   pc$ op-build hostboot-rebuild
+
+4. To revert,
+   edit op-build/openpower/package/hostboot/hostboot.mk and remove
+   the BUILD_VERBOSE environment variable
+   pc$ rm -rf output/build/hostboot-<commit>
+   pc$ rm -rf output/build/openpower-pnor-<commit>
+
+Question: How would you speed up your build?

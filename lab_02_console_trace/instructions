@@ -1,0 +1,14 @@
+
+# The goal of this lab is to introduce you to patching from github.
+# Because hostboot does not presently default to console tracing,
+# I maintain a patch on github which enables console tracing.
+
+1. Download the console patch from github:
+   https://github.com/brs332/hostboot/commit/670688f2180101ecf2d255c538121bf94f6d72ae.patch
+
+2. Place it in <open-power tree>/op-build/openpower/package/hostboot/hostboot-01-consoletrace.patch
+
+3. Remove the hostboot build tree and rebuild the pnor
+   pc$ rm -rf op-build/output/build/hostboot-<commit>
+   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
+   pc$ op-build openpower-pnor-rebuild

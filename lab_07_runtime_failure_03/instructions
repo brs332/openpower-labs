@@ -1,0 +1,20 @@
+
+# In this labe we'll induce a rumtime failure and diagnose the problem
+
+1. Copy hostboot-02-failure_three.patch to op-build/openpower/package/hostboot/
+   pc$ cp hostboot-02-failure_three.patch op-build/openpower/package/hostboot/
+2. Rebuild
+   pc$ rm -rf op-build/output/build/hostboot-<commit>
+   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
+   pc$ op-build openpower-pnor-rebuild
+
+3. Flash the image, and reboot the device
+
+4. To revert,
+   pc$ rm op-build/openpower/package/hostboot/hostboot-02-failure_three.patch
+   pc$ rm -rf op-build/output/build/hostboot-<commit>
+   pc$ rm -rf output/build/openpower-pnor-<commit>
+
+Question: What happened? How do you know?
+
+Hint: Try adding trace statements?

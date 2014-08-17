@@ -1,0 +1,45 @@
+diff --git a/src/build/trace/tracehash_hb.pl b/src/build/trace/tracehash_hb.pl
+index aa12589..3845d5b 100755
+--- a/src/build/trace/tracehash_hb.pl
++++ b/src/build/trace/tracehash_hb.pl
+@@ -55,7 +55,7 @@ my $file_name = "trexStringFile";
+ my $in_sand;
+ my ($backing) = $ENV{'bb'};
+ my $hash_prog = "trexhash";    #default to in path
+-my $build = ""; 
++my $build = "";
+ my ($sandbox) = $ENV{'SANDBOX'} || "";
+ my ($context) = $ENV{'CONTEXT'} || "";
+ my ($sandboxbase) = $ENV{'SANDBOXBASE'} || "";
+@@ -245,7 +245,7 @@ exit 0;
+ #=============================================================================
+ sub determine_args() {
+ 
+- 
++
+     # Find trexhash program
+     # but only if needed (i.e. not in collect mode)
+     if (!$collect) {
+@@ -477,7 +477,7 @@ sub read_string_file() {
+ 	    {
+ 		($l_hash, $l_file ,$l_str) = split(/\|\|/, $line);
+ 	    }
+-	    elsif($version eq "2")
++	    elsif($version "2")
+ 	    {
+ 		($l_hash, $l_str ,$l_file) = split(/\|\|/, $line);
+ 	    }
+@@ -786,7 +786,7 @@ sub hash_strings() {
+ 	# but we might want to bail out in this case anyway
+ 	$printf_string = $printf_string . "||" . $l_file_name;
+ 	$l_hash_strings{$hash_val} = $printf_string;
+-    }	
++    }
+     return %l_hash_strings;
+ }
+ #=============================================================================
+@@ -902,4 +902,3 @@ Scan mode: tracehash.pl [-vFCS] [-d <dir>] [-s <string_file>] [ccpopts]
+ EOF
+ }
+ #=============================================================================
+-

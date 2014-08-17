@@ -1,0 +1,32 @@
+
+# Flash the image and run the system.
+#
+# The image from the build needs to be transfered to the BMC so
+# it can be flashed. For this lab, we'll use an NFS mount on the
+# LCB to enable that transfer.
+
+1. Mount the LCB on your Linux VM, or scp the image to the LCB
+   pc$ sudo mount -t nfs -o nfsvers=2,nolock <lcb ip address>:/fspmount /mnt
+   - or -
+   pc$ scp op-build/output/images/palmetto.pnor <lcb ip address>:/fspmount ...
+
+2. In one window/tab/session log in to the BMC using the <bmc ip address>
+   pc$ telnet <bmc telnet address>
+3. Flash the image
+   bmc$ pflash -E -f -p <mount>:<image>
+
+4. In another window/tab/session log in to console
+   pc$ telnet <console telnet address>
+
+5. Once the image is flashed, run it
+   bmc$ power --off && power --on $$ power -boot
+
+# Output will be on the console
+
+# The "edit-compile-test" cycle looks like this:
+
+ pc$ <edit files>
+ pc$ op-build openpnor-pnor-rebuild
+ pc$ scp op-build/output/images/palmetto.pnor <lcb ip address>:/fspmount ...
+ bmc$ pflash -E -f -p <mount>:<image>
+ bmc$ power --off && power --on && power --boot

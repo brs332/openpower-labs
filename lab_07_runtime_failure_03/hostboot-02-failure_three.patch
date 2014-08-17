@@ -1,0 +1,20 @@
+diff --git a/src/usr/fsi/fsidd.C b/src/usr/fsi/fsidd.C
+index 865e27f..bccfeb4 100644
+--- a/src/usr/fsi/fsidd.C
++++ b/src/usr/fsi/fsidd.C
+@@ -1027,9 +1027,9 @@ FsiDD::FsiDD()
+ 
+     // save away the master processor target
+     TARGETING::TargetService& targetService = TARGETING::targetService();
+-    iv_master = NULL;
+     targetService.masterProcChipTargetHandle( iv_master );
+     TRACFCOMP(g_trac_fsi,"Master=%.8X",TARGETING::get_huid(iv_master));
++    iv_master = NULL;
+ 
+     // add a dummy value to catch NULL
+     FsiChipInfo_t info;
+@@ -2980,4 +2980,3 @@ void FsiDD::getFsiLinkInfo( TARGETING::Target* i_slave,
+         o_info.mPort = 1;
+     }
+ }
+-
