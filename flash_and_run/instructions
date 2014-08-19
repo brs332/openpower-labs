@@ -20,7 +20,7 @@
    pc$ telnet 9.3.23.242 2004
 
 5. Once the image is flashed, run it
-   bmc$ power --off && power --on $$ power -boot
+   bmc$ power --off && power --on $$ power --boot
 
 # Output will be on the console
 
