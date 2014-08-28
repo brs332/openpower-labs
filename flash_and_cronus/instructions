@@ -28,11 +28,11 @@
 5. In another window/tab/session log in to the LCB and setup cronus
    pc$ ssh 9.3.40.251
 
-   Enable the environment, this will put you in another shell
+   Enable the cronus environment, this will put you in another shell
    lcb$ /afs/awd.austin.ibm.com/projects/cte/tools/gsiexe/p8lab -nowin -cell awd
-   lcb$ ecmdsetup auto cro p8s1 dev
-   lcb$ target palm201
-   lcb$ fsp2cronus
+   cronus$ ecmdsetup auto cro p8s1 dev
+   cronus$ target palm201
+   cronus$ fsp2cronus
 
    # To use the hostboot tools, you need to be in the hostboot tree,
    # with the hostboot environment setup
@@ -60,7 +60,7 @@
    pc$ telnet 9.3.23.242 2004
 
 8. Start the system
-   lcb$ putcfam pu 2839 00040026 -pall;putcfam pu 281c 30000000 -pall;putcfam pu 281c b0000000 -pall
+   cronus$ putcfam pu 2839 00040026 -pall;putcfam pu 281c 30000000 -pall;putcfam pu 281c b0000000 -pall
 
 # The "edit-compile-test" cycle looks like this:
 
@@ -74,4 +74,4 @@
  fsp$ iomux-tool -d /dev/iomux/L00C0E03P00 -w 24 0x9F000000
  fsp$ iomux-tool -d /dev/iomux/L00C0E03P00 -l
  fsp$ echo 2d > /sys/kernel/fsi/fsp/buildup; sleep 3; echo 2 > /sys/kernel/fsi/fsp/buildup
- lcb$ putcfam pu 2839 00040026 -pall;putcfam pu 281c 30000000 -pall;putcfam pu 281c b0000000 -pall
+ cronus$ putcfam pu 2839 00040026 -pall;putcfam pu 281c 30000000 -pall;putcfam pu 281c b0000000 -pall

@@ -24,11 +24,11 @@
 5. In another window/tab/session log in to the LCB and setup cronus
    pc$ ssh 9.3.40.251
 
-   Enable the environment, this will put you in another shell
+   Enable the cronus environment, this will put you in another shell
    lcb$ /afs/awd.austin.ibm.com/projects/cte/tools/gsiexe/p8lab -nowin -cell awd
-   lcb$ ecmdsetup auto cro p8s1 dev
-   lcb$ target palm201
-   lcb$ fsp2cronus
+   cronus$ ecmdsetup auto cro p8s1 dev
+   cronus$ target palm201
+   cronus$ fsp2cronus
 
    # To use the hostboot tools, you need to be in the hostboot tree,
    # with the hostboot environment setup
@@ -40,68 +40,65 @@
    bmc$ power --off && power --on && power --cronus
 
 7. Connect the FSP (power --off disconnects it)
-   lcb$ makespsystemcall "iomux-tool -d /dev/iomux/L00C0E03P00 -i -w 24 0x9F000000"
-   lcb$ makespsystemcall "echo 2d > /sys/kernel/fsi/fsp/buildup; echo 2 > /sys/kernel/fsi/fsp/buildup"
+   cronus$ makespsystemcall "iomux-tool -d /dev/iomux/L00C0E03P00 -i -w 24 0x9F000000"
+   cronus$ makespsystemcall "echo 2d > /sys/kernel/fsi/fsp/buildup; echo 2 > /sys/kernel/fsi/fsp/buildup"
 
    # If you want to check that the connection is complete, look for link-2
    # /sys/devices
-   lcb$ makespsystemcall "ls /sys/devices"
-
-   # cut-paste one-liner:
-   iomux-tool -d /dev/iomux/L00C0E03P00 -i && iomux-tool -d /dev/iomux/L00C0E03P00 -w 24 0x9F000000 && iomux-tool -d /dev/iomux/L00C0E03P00 -l && echo 2d > /sys/kernel/fsi/fsp/buildup; sleep 3; echo 2 > /sys/kernel/fsi/fsp/buildup
+   cronus$ makespsystemcall "ls /sys/devices"
 
 8. Connect to the console port
    pc$ telnet 9.3.23.242 2004
 
 8. Start the system
-   lcb$ putcfam pu 2839 00040026 -pall;putcfam pu 281c 30000000 -pall;putcfam pu 281c b0000000 -pall
+   cronus$ putcfam pu 2839 00040026 -pall;putcfam pu 281c 30000000 -pall;putcfam pu 281c b0000000 -pall
 
 ###########################################################
-#Debug commands 
+#Debug commands
 ###########################################################
 
 #Memory display/alter
-cipgetmempba 08000000 128   # 0800_0000 is HRMOR for 128MB
+cronus$ cipgetmempba 08000000 128   # 0800_0000 is HRMOR for 128MB
 
 #Stop instructions
-cipinstruct pu.ex stop -p0 -cft -tall
-putscom pu.ex 0100F010B 0 1 1 -ib -call -pall  #force special wakeup on
+cronus$ cipinstruct pu.ex stop -p0 -cft -tall
+cronus$ putscom pu.ex 0100F010B 0 1 1 -ib -call -pall  #force special wakeup on
 
 #examining registers
-getspr nia lr cia msr -p0 -cft -tall
-getgpr 0 32 -p0 -cft -t0
+cronus$ getspr nia lr cia msr -p0 -cft -tall
+cronus$ getgpr 0 32 -p0 -cft -t0
 
 
 #Print out the various tasks and state
-$HB_DFRAME/ecmd-debug-framework.pl --tool=Ps 
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=Ps
 
 #Print out the Kernel printk buffer
-$HB_DFRAME/ecmd-debug-framework.pl --tool=Printk
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=Printk
 
 #Istep/boot control
-$HB_DFRAME/ecmd-debug-framework.pl --tool=Istep --tool-options="list"
-$HB_DFRAME/ecmd-debug-framework.pl --tool=Istep --tool-options="splessmode"
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=Istep --tool-options="list"
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=Istep --tool-options="splessmode"
 
 
 #The fsp-trace and errl binaries need to be local to where you execute the command
 
 #Tracing
-$HB_DFRAME/ecmd-debug-framework.pl --tool=Trace
-$HB_DFRAME/ecmd-debug-framework.pl --tool=Trace --tool-options="fsp-trace=<full path to location>"
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=Trace
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=Trace --tool-options="fsp-trace=<full path to location>"
 
 #Error log
-$HB_DFRAME/ecmd-debug-framework.pl --tool=Errl --tool-options="display=0X90000090"
-$HB_DFRAME/ecmd-debug-framework.pl --tool=Errl --tool-options="list"
- 
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=Errl --tool-options="display=0X90000090"
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=Errl --tool-options="list"
+
 #Converting a virtual address to physical
-$HB_DFRAME/ecmd-debug-framework.pl --tool=VirtToPhys --tool-options="vaddr=0x00000100061CF2E0"
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=VirtToPhys --tool-options="vaddr=0x00000100061CF2E0"
 
 
 #Display the memory statistics
-$HB_DFRAME/ecmd-debug-framework.pl --tool=MemStats
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=MemStats
 
 #Display the VMM (very very very slow)
-$HB_DFRAME/ecmd-debug-framework.pl --tool=PrintVMM
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=PrintVMM
 
 #Dump the hostboot memory contents to a file (for debug)
-$HB_DFRAME/ecmd-debug-framework.pl --tool=Dump 
+cronus$ $HB_DFRAME/ecmd-debug-framework.pl --tool=Dump
