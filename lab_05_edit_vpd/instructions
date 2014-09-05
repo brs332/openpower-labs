@@ -19,14 +19,12 @@ use the local git repo
 2. pc$ git add cvpd.bin
 3. pc$ git commit -m "VPD training changes"
 
-# Tell buildroot about the latest commit
-1. pc$ git log, will get you the commits. The top is the one you need.
-2. edit op-build/openpower/package/hostboot-binaries/hostboot-binaries.mk
+# Tell buildroot to use your tree
+1. edit op-build/openpower/package/hostboot-binaries/hostboot-binaries.mk
 
 -HOSTBOOT_BINARIES_VERSION = ff413007856b29b351250d63cce8996489083d26
 -HOSTBOOT_BINARIES_SITE = $(call github,open-power,hostboot-binaries,$(HOSTBOOT_BINARIES_VERSION))
 
-+HOSTBOOT_BINARIES_VERSION = 0ba9e7d4f666a1500bd5ef8092f4437b76f637b5
 +HOSTBOOT_BINARIES_SITE = /home/bsilver/open-power-training/hostboot-binaries
 +HOSTBOOT_BINARIES_SITE_METHOD = local
 
