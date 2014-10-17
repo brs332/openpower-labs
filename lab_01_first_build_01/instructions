@@ -5,7 +5,8 @@
 
 1. Go to https://github.com/open-power, have a look around.
 2. In open-power/op-build/README, you'll find the build instructions
-3. Lets follow them ...
+3. Follow them to create a build ...
+ - You may need to add ssh keys to github: https://help.github.com/articles/generating-ssh-keys/
 
 # It is recommended that you create a build.log - it does not happen
 automatically.
