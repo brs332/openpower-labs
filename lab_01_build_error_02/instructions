@@ -6,8 +6,7 @@
 
 2. Rebuild
    pc$ rm -rf op-build/output/build/hostboot-<commit>
-   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
-   pc$ op-build openpower-pnor-rebuild
+   pc$ op-build hostboot-rebuild openpower-pnor-rebuild
 
 4. To revert:
    pc$ rm op-build/openpower/package/hostboot/hostboot-02-build_failure_one.patch

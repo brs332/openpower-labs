@@ -6,52 +6,7 @@
 #    Start hostboot with cronus
 #    Hostboot built in istep mode
 
-1. Mount the LCB on your Linux VM, or scp the image to the LCB
-   pc$ sudo mount -t nfs -o nfsvers=2,nolock 9.3.40.251:/fspmount/bmc /mnt
-   - or -
-   pc$ scp op-build/output/images/palmetto.pnor 9.3.40.251:/fspmount/bmc/brian.pnor
-
-2. In one window/tab/session log in to the BMC using the <bmc ip address>
-   pc$ telnet 9.3.23.242 2003
-
-3. Flash the image
-   bmc$ pflash -E -f -p /mnt/brian.pnor
-
-4. The LCB needs access to your build tree. Given the training environment,
-   we'll rsync the tree.
-   pc$ rsync -rvtlz op-build/output/build/hostboot-<commit> bsilver@gfw164:op-hostboot/
-
-5. In another window/tab/session log in to the LCB and setup cronus
-   pc$ ssh 9.3.40.251
-
-   Enable the cronus environment, this will put you in another shell
-   lcb$ /afs/awd.austin.ibm.com/projects/cte/tools/gsiexe/p8lab -nowin -cell awd
-   cronus$ ecmdsetup auto cro p8s1 dev
-   cronus$ target palm201
-   cronus$ fsp2cronus
-
-   # To use the hostboot tools, you need to be in the hostboot tree,
-   # with the hostboot environment setup
-   lcb$ cd op-hostboot/
-   lcb$ ./hb workon
-   lcb$ export HB_DFRAME=`pwd`/src/build/debug/
-
-6. Power-up the device into cronus mode:
-   bmc$ power --off && power --on && power --cronus
-
-7. Connect the FSP (power --off disconnects it)
-   cronus$ makespsystemcall "iomux-tool -d /dev/iomux/L00C0E03P00 -i -w 24 0x9F000000"
-   cronus$ makespsystemcall "echo 2d > /sys/kernel/fsi/fsp/buildup; echo 2 > /sys/kernel/fsi/fsp/buildup"
-
-   # If you want to check that the connection is complete, look for link-2
-   # /sys/devices
-   cronus$ makespsystemcall "ls /sys/devices"
-
-8. Connect to the console port
-   pc$ telnet 9.3.23.242 2004
-
-8. Start the system
-   cronus$ putcfam pu 2839 00040026 -pall;putcfam pu 281c 30000000 -pall;putcfam pu 281c b0000000 -pall
+1. Setup your system as noted in openpower-labs/flash_and_cronus
 
 ###########################################################
 #Debug commands

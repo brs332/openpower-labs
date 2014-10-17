@@ -1,2 +1,80 @@
 
 A handful of lab exercises, used for OpenPOWER training.
+
+To complete these labs, you'll need the following:
+
+1. Access to wn open-power platform; Palmetto, Habanero, etc.
+ - This will be noted in the labs as <device>
+
+2. A serial port connection to the BMC of the <device>
+ - This will be noted in the labas a <bmc serial>
+ - Commands issued using this interface will be prefaced by a prompt
+   which looks like "bmc$" When you see a command using this prompt
+   it is intended to be issued via the BMC serial port.
+
+3. A serial port connection to the Console of the <device>
+ - This will be noted in the labas a <host serial>
+
+4. If the serial ports are connected to a terminal concentrator you will
+need the IP address and port numbers for the connections.
+ - These will be noted in the labs as <serial ip> and <console ip>
+
+5. The IP address of your LCB. In the labs, this is noted as <lcb ip>
+ - Commands issued using this interface are noted with the prompt "lcb$"
+ - Note: the Cronus tool runs on the LCB, and Cronus commands are
+   issued via the LCB. Cronus commands are differentiated from LCB
+   system commands with the prompt "cronus$"
+
+6. A user id with which to log in to the LCB. This is noted as <user>.
+
+7. The IP address of the FSP debug box connected to the <device>. You trainer
+will give you the user and password to log in to the FSP.
+ - This will be notes as <fsp ip>
+ - It's prompt is noted as "fsp$"
+
+8. A computer with IP network access to the above addresses. Preferably this
+is the device which was/will be used to perform the open-power build.
+ - This will be noted in the labs as <pc>
+ - It's prompt is noted as "pc$"
+
+9. You will need space on the LCB to transfer images. This is typically
+an exported mount point. This will be noted as <mount path>
+ - Example /fspmount/bmc
+ - So <lcb ip>:<mount path> might be something like 9.3.1.42:/fspmount/bmc
+
+10. All open-power source paths are relative to the "top" of your open-power
+tree.
+  - Example: You cloned in to /home/users/brian/open-power and so
+    pc$ ls /home/users/brian/open-power
+    op-build
+    pc$ ls /home/users/brian/open-power/op-build
+    buildroot  dl  LICENSE  NOTICE  op-build-env  openpower  output  README
+    pc$ ls /home/users/brian/open-power/op-build/openpower
+    Config.in  configs  external.mk  package  platform
+    pc$
+ - This last path will be represented in the labs as op-build/openpower
+   leaving the leading /home/users/brian/open-power off.
+
+11. Versions of source code in open-power are noted by git commit numbers.
+These are large strings of letters and numbers which make their way in to
+the build tree as a way of identifying which version of code was built.
+ - Example
+   pc$ ls op-build/output/build/hostboot-*
+   output/build/hostboot-1300dc02979646be65a39097f86a559cf68bcfb7
+   ...
+   pc$
+ - The string 1300dc02979646be65a39097f86a559cf68bcfb7 is the "hostboot" version
+   and coresponds to the git commit used to build the hostboot tree.
+
+This number will change, and so in the labs it is noted as <commit>
+ - Example
+   pc$ rsync -rvtlz op-build/output/build/hostboot-<commit>
+
+   would become
+
+   pc$ rsync -rvtlz op-build/output/build/hostboot-1300dc02979646be65a39097f86a559cf68bcfb7
+
+12. You will need the Cronus target name of your FSP debug box. This is noted
+as <cronus target>.
+
+

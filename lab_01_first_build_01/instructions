@@ -5,11 +5,12 @@
 
 1. Go to https://github.com/open-power, have a look around.
 2. In open-power/op-build/README, you'll find the build instructions
-3. Lets follow them ... but after the clone and before the op-build,
-   load the files from the USB stick in to <open-power tree>/op-build/dl
+3. Lets follow them ...
 
 # It is recommended that you create a build.log - it does not happen
 automatically.
+
+Once the build is complete, continue:
 
 # Lets clean the build, turn on verbose output and build again
 
@@ -25,12 +26,10 @@ automatically.
 +    OPENPOWER_BUILD=1 CROSS_PREFIX=$(TARGET_CROSS) HOST_PREFIX="" HOST_BINUTILS_DIR=$(HOST_BINUTILS_DIR)
 
 3. Rebuild
-   pc$ op-build hostboot-rebuild
+   pc$ op-build hostboot-rebuild openpower-pnor-rebuild
 
 4. To revert,
    edit op-build/openpower/package/hostboot/hostboot.mk and remove
    the BUILD_VERBOSE environment variable
    pc$ rm -rf output/build/hostboot-<commit>
    pc$ rm -rf output/build/openpower-pnor-<commit>
-
-Question: How would you speed up your build?

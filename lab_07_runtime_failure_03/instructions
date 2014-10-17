@@ -3,10 +3,10 @@
 
 1. Copy hostboot-02-failure_three.patch to op-build/openpower/package/hostboot/
    pc$ cp hostboot-02-failure_three.patch op-build/openpower/package/hostboot/
+
 2. Rebuild
    pc$ rm -rf op-build/output/build/hostboot-<commit>
-   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
-   pc$ op-build openpower-pnor-rebuild
+   pc$ op-build hostboot-rebuild openpower-pnor-rebuild
 
 3. Flash the image, and reboot the device
 

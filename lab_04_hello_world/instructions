@@ -3,6 +3,7 @@
 # hostboot code and see it reflected when we run
 
 1. Create a fork of open-power/hostboot and clone it.
+   https://help.github.com/articles/fork-a-repo/
    github$ make the fork
    github$ grab the clone url
    pc$ cd <open-power tree> && git clone <clone url>
@@ -26,20 +27,11 @@
 4. Remove the hostboot build tree and rebuild
    pc$ cd ../op-build/
    pc$ rm -rf output/build/hostboot-<commit>
-   pc$ rm -rf output/build/openpower-pnor-<commit>
-   pc$ op-build openpower-pnor-rebuild
+   pc$ op-build hostboot-rebuild openpower-pnor-rebuild
 
-5. Copy the image up and flash it
-   pc$ scp output/images/palmetto.pnor <bmc ip>:<bmc mount point>/<file name>
-   bmc$ pflash -E -f -p <bmc mount>/<file name>
+5. Copy the image up and flash it, and run it
 
-   example:
-   pc$ scp output/images/palmetto.pnor 9.3.40.251:/fspmount/bmc/brian.pnor
-
-6. Run it
-   bmc$ power --off && power --on && power -- boot
-
-7. Output will be on the console
+6. Output will be on the console
 
 # To revert
   pc$ cd <open-power tree>/hostboot
@@ -48,3 +40,5 @@
   pc$ rm -rf output/build/hostboot-<commit>
   pc$ rm -rf output/build/openpower-pnor-<commit>
   pc$ op-build openpower-pnor-rebuild
+
+# Do you see your trace? How do you do the same thing, but via Cronus?

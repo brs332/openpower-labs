@@ -9,12 +9,12 @@
 
 2. Rebuild
    pc$ rm -rf op-build/output/build/hostboot-<commit>
-   pc$ rm -rf op-build/output/build/openpower-pnor-<commit>
-   pc$ op-build openpower-pnor-rebuild
+   pc$ op-build hostboot-rebuild openpower-pnor-rebuild
 
 3. Find the file gipodd.o
 
-# Do we want to run this and see what happens?
+# Do we want to run this and see what happens? Can you find where in the makefiles
+# this change was affected?
 
 4. To revert, git checkout op-build/openpower/configs/hostboot/palmetto.config
 

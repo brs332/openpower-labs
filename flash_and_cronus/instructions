@@ -1,37 +1,39 @@
 
-# Flash the image and run the system. Becuase
-# the system does not currently default to console trace output,
-# we'll use the FSP-debug device and Cronus to look at the output
+# Flash the image and run the system. We'll use the FSP-debug device and Cronus
+# to look at the output
 #
 # The image from the build needs to be transfered to the BMC so
 # it can be flashed. For this lab, we'll use an NFS mount on the
 # LCB to enable that transfer.
 
-1. Mount the LCB on your Linux VM, or scp the image to the LCB
-   pc$ sudo mount -t nfs -o nfsvers=2,nolock 9.3.40.251:/fspmount/bmc /mnt
-   - or -
-   pc$ scp op-build/output/images/palmetto.pnor 9.3.40.251:/fspmount/bmc/brian.pnor
+1. scp the image to the LCB
+   pc$ scp op-build/output/images/palmetto.pnor <user>@<lcb ip>:<mount path>
 
-2. In one window/tab/session log in to the BMC using the <bmc ip address>
+2. In one window/tab/session connect to the BMC serial port. This may be a
+direct connection to your PC, or it may be through a terminal concentration.
+If necessary, log in to the terminal concentrator and connect using using <serial ip>
+Example:
    pc$ telnet 9.3.23.242 2003
 
-3. Flash the image
-   bmc$ pflash -E -f -p /mnt/brian.pnor
+3. Mount the LCB on your <device> BMC
+   bmc$ mount -t nfs -o nfsvers=2,nolock <lcb ip>:<mount path> /mnt
 
-4. The LCB needs access to your build tree. Given the training environment,
-   we'll rsync the tree.
-   pc$ rsync -rvtlz op-build/output/build/hostboot-<commit> bsilver@gfw164:op-hostboot/
+3. Flash the image
+   bmc$ pflash -E -f -p /mnt/palmetto.pnor
+
+4. The LCB needs access to your build tree. You may need to rsync it.
+   pc$ rsync -rvtlz op-build/output/build/hostboot-<commit> <user>@<lcb ip>:op-hostboot/
 
 4. In another window/tab/session log in to the FSP-debug device
-   pc$ telnet 9.41.165.119
+   pc$ telnet <fsp ip>
 
 5. In another window/tab/session log in to the LCB and setup cronus
-   pc$ ssh 9.3.40.251
+   pc$ ssh <lcb ip>
 
    Enable the cronus environment, this will put you in another shell
    lcb$ /afs/awd.austin.ibm.com/projects/cte/tools/gsiexe/p8lab -nowin -cell awd
    cronus$ ecmdsetup auto cro p8s1 dev
-   cronus$ target palm201
+   cronus$ target <cronus target>
    cronus$ fsp2cronus
 
    # To use the hostboot tools, you need to be in the hostboot tree,
@@ -56,8 +58,9 @@
    # cut-paste one-liner:
    iomux-tool -d /dev/iomux/L00C0E03P00 -i && iomux-tool -d /dev/iomux/L00C0E03P00 -w 24 0x9F000000 && iomux-tool -d /dev/iomux/L00C0E03P00 -l && echo 2d > /sys/kernel/fsi/fsp/buildup; sleep 3; echo 2 > /sys/kernel/fsi/fsp/buildup
 
-8. Connect to the console port
-   pc$ telnet 9.3.23.242 2004
+8. Connect to the console port. This is either directly connected via <host serial>
+or connected to a terminal concentrator:
+   pc$ telnet <console ip>
 
 8. Start the system
    cronus$ putcfam pu 2839 00040026 -pall;putcfam pu 281c 30000000 -pall;putcfam pu 281c b0000000 -pall
@@ -66,8 +69,8 @@
 
  pc$ <edit files>, <remove build artifacts {hostboot, pnor}>
  pc$ op-build openpnor-pnor-rebuild
- pc$ scp op-build/output/images/palmetto.pnor <lcb ip address>:/fspmount ...
- bmc$ pflash -E -f -p <mount>:<image>
+ pc$ scp op-build/output/images/palmetto.pnor <lcb ip>:<mount point>
+ bmc$ pflash -E -f -p /mnt/palmetto.pnor
  pc$ rsync -rvtlz op-build/output/build/hostboot-<commit> ... (if necessary)
  bmc$ power --off && power --on && power --cronus
  fsp$ iomux-tool -d /dev/iomux/L00C0E03P00 -i
